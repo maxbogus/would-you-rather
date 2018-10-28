@@ -32,7 +32,7 @@ let users = {
         },
         questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
     }
-}
+};
 
 let questions = {
     "8xf0y6ziyjabvozdd253nd": {
@@ -113,7 +113,7 @@ let questions = {
             text: 'write Swift'
         }
     },
-}
+};
 
 function generateUID () {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -156,7 +156,7 @@ export function _saveQuestion (question) {
             questions = {
                 ...questions,
                 [formattedQuestion.id]: formattedQuestion
-            }
+            };
 
             users = {
                 ...users,
@@ -164,7 +164,7 @@ export function _saveQuestion (question) {
                     ...users[authedUser],
                     questions: users[authedUser].questions.concat([formattedQuestion.id])
                 }
-            }
+            };
 
             res(formattedQuestion)
         }, 1000)
@@ -183,7 +183,7 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
                         [qid]: answer
                     }
                 }
-            }
+            };
 
             questions = {
                 ...questions,
@@ -194,7 +194,7 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
                         votes: questions[qid][answer].votes.concat([authedUser])
                     }
                 }
-            }
+            };
 
             res()
         }, 500)
