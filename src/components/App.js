@@ -39,4 +39,4 @@ function mapsStateToProps({authedUser}) {
 
 }
 
-export default connect()(App)
+export default connect(mapsStateToProps)(App)
