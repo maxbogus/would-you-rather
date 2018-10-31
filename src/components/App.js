@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {handleIniitalData} from "../actions/shared";
 import LoadingBar from 'react-redux-loading';
 import Nav from "./Nav";
+import Login from "./Login";
 
 class App extends Component {
     componentDidMount() {
@@ -18,9 +19,7 @@ class App extends Component {
                     <div className='container'>
                         <Nav/>
                         {this.props.logged !== true
-                            ?   <div>
-                                Not logged
-                            </div>
+                            ? <Login/>
                             : <div>
                                 Logged
                             </div>
