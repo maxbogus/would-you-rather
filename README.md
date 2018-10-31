@@ -14,8 +14,8 @@ In this app, users will be able:
  
  ## Installation:
  * Install npm and node: https://nodejs.org/en/download/
- * Install app: $ npm install
+ * Install app: $ yarn
  
  ## Start application:
- * Start app: $ npm start
+ * Start app: $ yarn start
  
