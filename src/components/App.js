@@ -1,10 +1,12 @@
 import React, {Component, Fragment} from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {handleIniitalData} from "../actions/shared";
 import LoadingBar from 'react-redux-loading';
-import Nav from "./Nav";
+
+import {handleIniitalData} from "../actions/shared";
+import AddQuestion from "./AddQuestion";
 import Login from "./Login";
+import Nav from "./Nav";
 
 class App extends Component {
     componentDidMount() {
@@ -21,7 +23,7 @@ class App extends Component {
                         {this.props.logged !== true
                             ? <Login/>
                             : <div>
-                                Logged
+                                <Route path='/add' exact component={AddQuestion}/>
                             </div>
                         }
                     </div>
