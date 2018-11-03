@@ -1,8 +1,15 @@
 import React, {Component, Fragment} from 'react'
 import {NavLink} from 'react-router-dom'
 import connect from "react-redux/es/connect/connect";
+import {setAuthedUser} from "../actions/authedUser";
 
 class Nav extends Component {
+    handleClick = () => {
+        const {dispatch} = this.props;
+
+        dispatch(setAuthedUser(null));
+    };
+
     render() {
         return (
             <nav className='nav'>
@@ -26,11 +33,7 @@ class Nav extends Component {
                             </li>
                             <li>
                                 Active User: {this.props.user}
-                            </li>
-                            <li>
-                                <NavLink to='/logout' activeClassName='active'>
-                                    Logout
-                                </NavLink>
+                                <button className='active' onClick={this.handleClick}>Logout</button>
                             </li>
                         </Fragment>
                         : null
