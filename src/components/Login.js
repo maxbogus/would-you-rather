@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {setAuthedUser} from "../actions/authedUser";
 
 class Login extends Component {
     handleClick = (e, id) => {
-        // const {dispatch, tweet, authedUser} = this.props;
-        // todo: dispatch selected user
+        const {dispatch} = this.props;
 
-        console.log(id);
+        dispatch(setAuthedUser(id));
     };
 
     render() {
