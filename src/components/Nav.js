@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import connect from "react-redux/es/connect/connect";
 import {setAuthedUser} from "../actions/authedUser";
@@ -11,33 +11,29 @@ class Nav extends Component {
     };
 
     render() {
+        const {user} = this.props;
         return (
             <nav className='nav'>
-                <ul className='dashboard-list'>
+                <ul>
                     <li>
                         <NavLink to='/' exact activeClassName='active'>
                             Home
                         </NavLink>
                     </li>
-                    {this.props.logged === true
-                        ? <Fragment>
-                            <li>
-                                <NavLink to='/add' activeClassName='active'>
-                                    New Question
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to='/leaderboard' activeClassName='active'>
-                                    Leader Board
-                                </NavLink>
-                            </li>
-                            <li>
-                                Active User: {this.props.user}
-                                <button className='active' onClick={this.handleClick}>Logout</button>
-                            </li>
-                        </Fragment>
-                        : null
-                    }
+                    <li>
+                        <NavLink to='/add' activeClassName='active'>
+                            New Question
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/leaderboard' activeClassName='active'>
+                            Leader Board
+                        </NavLink>
+                    </li>
+                    <li>
+                        Active User: {user}
+                        <button className='active' onClick={this.handleClick}>Logout</button>
+                    </li>
                 </ul>
             </nav>
         )
@@ -46,7 +42,6 @@ class Nav extends Component {
 
 function mapStateToProps({authedUser}) {
     return {
-        logged: authedUser !== null,
         user: authedUser
     }
 }

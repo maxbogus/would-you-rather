@@ -15,18 +15,20 @@ class App extends Component {
     }
 
     render() {
+        const {logged} = this.props;
+
         return (
             <Router>
                 <Fragment>
                     <LoadingBar/>
                     <div className='container'>
-                        <Nav/>
-                        {this.props.logged !== true
-                            ? <Login/>
-                            : <div>
+                        {logged
+                            ? <div>
+                                <Nav/>
                                 <Route path='/add' exact component={AddQuestion}/>
                                 <Route path='/leaderboard' exact component={Leaderboard}/>
                             </div>
+                            : <Login/>
                         }
                     </div>
                 </Fragment>
