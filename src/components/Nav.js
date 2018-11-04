@@ -13,7 +13,7 @@ class Nav extends Component {
     render() {
         return (
             <nav className='nav'>
-                <ul>
+                <ul className='dashboard-list'>
                     <li>
                         <NavLink to='/' exact activeClassName='active'>
                             Home
