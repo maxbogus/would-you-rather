@@ -24,7 +24,7 @@ class Login extends Component {
 
         return (
             <div>
-                <h3 className='center'>Select User</h3>
+                <h2 className='center'>Select User</h2>
                 <ul className='dashboard-list'>
                     {userList}
                 </ul>
