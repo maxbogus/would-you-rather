@@ -52,16 +52,18 @@ class AddQuestion extends Component {
             <div>
                 <h2 className='center'>Would You Rather?</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <input placeholder="Option one"
-                              value={firstOption}
-                              onChange={this.handleFirstOptionChange}
-                              className='textarea'
-                              maxLength={280}/>
-                    <input placeholder="Option two"
-                              value={secondOption}
-                              onChange={this.handleSecondOptionChange}
-                              className='textarea'
-                              maxLength={280}/>
+                    <p>
+                        <input placeholder="Option one"
+                               value={firstOption}
+                               onChange={this.handleFirstOptionChange}
+                               className='textarea'/>
+                    </p>
+                    <p>
+                        <input placeholder="Option two"
+                               value={secondOption}
+                               onChange={this.handleSecondOptionChange}
+                               className='textarea'/>
+                    </p>
                     <button className='btn'
                             type='submit'
                             disabled={firstOption === '' || secondOption === ''}>Submit
