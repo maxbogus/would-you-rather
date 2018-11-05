@@ -49,8 +49,8 @@ class AddQuestion extends Component {
         }
 
         return (
-            <div>
-                <h2 className='center'>Would You Rather?</h2>
+            <div className='center'>
+                <h2>Would You Rather?</h2>
                 <form onSubmit={this.handleSubmit}>
                     <p>
                         <input placeholder="Option one"
