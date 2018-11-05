@@ -32,7 +32,9 @@ class Nav extends Component {
                     </li>
                     <li>
                         Active User: {user}
-                        <button className='active' onClick={this.handleClick}>Logout</button>
+                    </li>
+                    <li className='active' onClick={this.handleClick}>
+                        Logout
                     </li>
                 </ul>
             </nav>
