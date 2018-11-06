@@ -8,6 +8,7 @@ import AddQuestion from "./AddQuestion";
 import Leaderboard from "./Leaderboard";
 import Login from "./Login";
 import Nav from "./Nav";
+import Poll from "./Poll";
 import Polls from "./Polls";
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
                                 <Route path='/' exact component={Polls}/>
                                 <Route path='/add' exact component={AddQuestion}/>
                                 <Route path='/leaderboard' exact component={Leaderboard}/>
+                                <Route path='/questions/:id' exact component={Poll}/>
                             </div>
                             : <Login/>
                         }
