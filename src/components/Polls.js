@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import Link from "react-router-dom/es/Link";
+import {Link} from "react-router-dom";
 
 class Polls extends Component {
     state = {
@@ -29,7 +29,7 @@ class Polls extends Component {
                          onClick={this.handleClick}>Show {(!answered) ? "unanswered" : "answered"}</li>;
         let polls = (questions) ?
             <ul>{questionIds.map((item) => (showQuestion(questions[item], answered)) ?
-                <Link to={`/questions/${item}`} className='tweet'>
+                <Link key={item} to={`/questions/${item}`} className='tweet'>
                     <li key={item}>{formName(questions[item])}</li>
                 </Link> : null)}</ul> :
             <span> Loading ... </span>;
@@ -51,6 +51,5 @@ function mapsStateToProps({questions, authedUser}) {
         questions
     }
 }
-
 
 export default connect(mapsStateToProps)(Polls)
