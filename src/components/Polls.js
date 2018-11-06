@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Link from "react-router-dom/es/Link";
 
 class Polls extends Component {
     state = {
@@ -15,26 +16,38 @@ class Polls extends Component {
     };
 
     render() {
-        const {questions} = this.props;
+        const {authedUser, questionIds, questions} = this.props;
         const {answered} = this.state;
 
-        let polls = <span> Loading ... </span>;
+        const showQuestion = (question, answered) => {
+            return answered === (question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser));
+        };
 
-        if (questions) {
-            polls = <div onClick={this.handleClick}>{(!answered) ? "Unanswered" : "Answered"}</div>
-        }
+        const formName = (question) => `Would you rather ${question.optionOne.text} or ${question.optionTwo.text}?`;
+
+        let button = <li className='active'
+                         onClick={this.handleClick}>Show {(!answered) ? "unanswered" : "answered"}</li>;
+        let polls = (questions) ?
+            <ul>{questionIds.map((item) => (showQuestion(questions[item], answered)) ?
+                <Link to={`/questions/${item}`} className='tweet'>
+                    <li key={item}>{formName(questions[item])}</li>
+                </Link> : null)}</ul> :
+            <span> Loading ... </span>;
 
         return (
             <div className='center'>
                 <h2>Polls</h2>
+                {button}
                 {polls}
             </div>
         )
     }
 }
 
-function mapsStateToProps({questions}) {
+function mapsStateToProps({questions, authedUser}) {
     return {
+        authedUser,
+        questionIds: Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp),
         questions
     }
 }
