@@ -1,14 +1,57 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link, withRouter} from 'react-router-dom'
+import {formatDate} from "../utils/helpers";
 
 class Poll extends Component {
+    handleVote = (e, option) => {
+        e.preventDefault();
+
+        const {dispatch, question, authedUser} = this.props;
+        console.log(dispatch, question, authedUser, option)
+        //todo: handle Vote
+    };
+
+    toMain = (e) => {
+        e.preventDefault();
+        this.props.history.push(`/`)
+    };
+
     render() {
+        const {question, users, authedUser} = this.props;
+
+        if (question === null) {
+            return <p>This Question doesn't existed</p>
+        }
+
+        const {id, author, timestamp, optionOne, optionTwo} = question;
+        const checkStyle = (option) => { return (option.includes(authedUser)) ? 'bold': null};
+
         return (
-            <div>
-                Poll
-            </div>
+            <Link to={`/questions/${id}`} className='tweet'>
+                <div className='tweet-info'>
+                    <h3>Would you rather?</h3>
+                    <img src={users[author].avatarURL} alt={users[author].name}/>
+                    <div>{formatDate(timestamp)}</div>
+                    <p style={{fontWeight: checkStyle(optionOne.votes)}}>{optionOne.text}</p>
+                    <p>or</p>
+                    <p style={{fontWeight: checkStyle(optionTwo.votes)}}>{optionTwo.text}</p>
+                </div>
+            </Link>
         )
     }
 }
 
-export default connect()(Poll)
+function mapStateToProps({authedUser, users, questions}, props) {
+    const {id} = props.match.params;
+    const question = questions[id];
+
+    return {
+        id,
+        users,
+        authedUser,
+        question: question ? question : null
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(Poll))
