@@ -26,6 +26,7 @@ class Poll extends Component {
 
         const {id, author, timestamp, optionOne, optionTwo} = question;
         const checkStyle = (option) => {return {fontWeight: (option.includes(authedUser)) ? 'bold': null}};
+        const formVoteText = (option) => `${option.text} chose ${option.votes.length} (${option.votes.length/(Object.keys(users).length/100)}%)`;
 
         return (
             <Link to={`/questions/${id}`} className='tweet'>
@@ -33,9 +34,9 @@ class Poll extends Component {
                     <h3>Would you rather?</h3>
                     <img src={users[author].avatarURL} alt={users[author].name}/>
                     <div>{formatDate(timestamp)}</div>
-                    <p style={checkStyle(optionOne.votes)}>{optionOne.text}</p>
+                    <p style={checkStyle(optionOne.votes)}>{formVoteText(optionOne)}</p>
                     <p>or</p>
-                    <p style={checkStyle(optionTwo.votes)}>{optionTwo.text}</p>
+                    <p style={checkStyle(optionTwo.votes)}>{formVoteText(optionTwo)}</p>
                 </div>
             </Link>
         )
