@@ -25,7 +25,6 @@ export function handleAddQuestion(optionOneText, optionTwoText) {
             .then((question) => dispatch(addQuestion(question)))
             .then(() => (hideLoading()))
     }
-
 }
 
 export function receiveQuestions(questions) {
