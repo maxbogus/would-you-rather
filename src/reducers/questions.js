@@ -8,8 +8,11 @@ export default function questions(state = {}, action) {
                 ...action.questions
             };
         case SAVE_QUESTION:
-            console.log(state, action);
-            return state;
+            const {question} = action;
+            return {
+                ...state,
+                [question.id]: question,
+            };
         default:
             return state;
     }
