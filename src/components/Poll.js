@@ -12,11 +12,6 @@ class Poll extends Component {
         //todo: handle Vote
     };
 
-    toMain = (e) => {
-        e.preventDefault();
-        this.props.history.push(`/`)
-    };
-
     render() {
         const {question, users, authedUser} = this.props;
 
@@ -25,8 +20,16 @@ class Poll extends Component {
         }
 
         const {id, author, timestamp, optionOne, optionTwo} = question;
-        const checkStyle = (option) => {return {fontWeight: (option.includes(authedUser)) ? 'bold': null}};
-        const formVoteText = (option) => `${option.text} chose ${option.votes.length} (${option.votes.length/(Object.keys(users).length/100)}%)`;
+
+        const checkAuthed = (option) => option.includes(authedUser);
+        const checkStyle = (option) => {
+            return {
+                fontWeight: (checkAuthed(option)) ? 'bold' : null,
+                textDecoration: (checkAuthed(option)) ? null : 'underline',
+                color: (checkAuthed(option)) ? null : 'blue'
+            }
+        };
+        const formVoteText = (option) => `${option.text} chose ${option.votes.length} (${option.votes.length / (Object.keys(users).length / 100)}%)`;
 
         return (
             <Link to={`/questions/${id}`} className='tweet'>
@@ -34,9 +37,13 @@ class Poll extends Component {
                     <h3>Would you rather?</h3>
                     <img src={users[author].avatarURL} alt={users[author].name}/>
                     <div>{formatDate(timestamp)}</div>
-                    <p style={checkStyle(optionOne.votes)}>{formVoteText(optionOne)}</p>
+                    <button disabled={checkAuthed(optionOne.votes)}
+                            onClick={(e) => this.handleVote(e, optionOne)}
+                            style={checkStyle(optionOne.votes)}>{formVoteText(optionOne)}</button>
                     <p>or</p>
-                    <p style={checkStyle(optionTwo.votes)}>{formVoteText(optionTwo)}</p>
+                    <button disabled={checkAuthed(optionTwo.votes)}
+                            onClick={(e) => this.handleVote(e, optionTwo)}
+                            style={checkStyle(optionTwo.votes)}>{formVoteText(optionTwo)}</button>
                 </div>
             </Link>
         )
