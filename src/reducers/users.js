@@ -1,4 +1,5 @@
 import {RECEIVE_USERS} from "../actions/users";
+import {ANSWER_QUESTION, SAVE_QUESTION} from "../actions/questions"
 
 export default function users(state = {}, action) {
     switch (action.type) {
@@ -6,6 +7,23 @@ export default function users(state = {}, action) {
             return {
                 ...state,
                 ...action.users
+            };
+        case ANSWER_QUESTION:
+            const {authedUser, answerType, qid} = action.question;
+
+            return {
+                ...state,
+                [authedUser]: {
+                    ...state[authedUser],
+                    answers: {
+                        ...state[authedUser].answers,
+                        [qid]: answerType
+                    }
+                }
+            };
+        case SAVE_QUESTION:
+            return {
+                ...state
             };
         default:
             return state;
