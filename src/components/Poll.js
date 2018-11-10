@@ -2,14 +2,18 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 import {formatDate} from "../utils/helpers";
+import {handleAnswerQuestion} from "../actions/questions";
 
 class Poll extends Component {
     handleVote = (e, option) => {
         e.preventDefault();
 
         const {dispatch, question, authedUser} = this.props;
-        console.log(dispatch, question, authedUser, option)
-        //todo: handle Vote
+        dispatch(handleAnswerQuestion({
+            authedUser,
+            answerType: option,
+            qid: question.id,
+        }))
     };
 
     render() {
@@ -41,12 +45,12 @@ class Poll extends Component {
                     <h3>Would you rather?</h3>
                     <img src={users[author].avatarURL} alt={users[author].name}/>
                     <div>{formatDate(timestamp)}</div>
-                    <button disabled={checkAuthed(optionOne.votes)}
-                            onClick={(e) => this.handleVote(e, optionOne)}
+                    <button disabled={answeredPoll}
+                            onClick={(e) => this.handleVote(e, 'optionOne')}
                             style={checkStyle(optionOne.votes)}>{formVoteText(optionOne)}</button>
                     <p>or</p>
-                    <button disabled={checkAuthed(optionTwo.votes)}
-                            onClick={(e) => this.handleVote(e, optionTwo)}
+                    <button disabled={answeredPoll}
+                            onClick={(e) => this.handleVote(e, 'optionTwo')}
                             style={checkStyle(optionTwo.votes)}>{formVoteText(optionTwo)}</button>
                 </div>
             </Link>
