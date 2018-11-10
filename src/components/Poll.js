@@ -21,7 +21,7 @@ class Poll extends Component {
 
         const {id, author, timestamp, optionOne, optionTwo} = question;
 
-        const checkAuthed = (option) => option.includes(authedUser);
+        const checkAuthed = (votes) => votes.includes(authedUser);
         const checkStyle = (option) => {
             return {
                 fontWeight: (checkAuthed(option)) ? 'bold' : null,
@@ -29,7 +29,11 @@ class Poll extends Component {
                 color: (checkAuthed(option)) ? null : 'blue'
             }
         };
-        const formVoteText = (option) => `${option.text} chose ${option.votes.length} (${option.votes.length / (Object.keys(users).length / 100)}%)`;
+        const answeredPoll = checkAuthed(optionOne.votes) || checkAuthed(optionTwo.votes);
+
+        const formVoteText = (option) => answeredPoll
+            ? `${option.text} chose ${option.votes.length} (${option.votes.length / (Object.keys(users).length / 100)}%)`
+            : option.text;
 
         return (
             <Link to={`/questions/${id}`} className='tweet'>
