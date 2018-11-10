@@ -22,8 +22,15 @@ export default function users(state = {}, action) {
                 }
             };
         case SAVE_QUESTION:
+            const {id, author} = action.question;
+
             return {
-                ...state
+                ...state,
+                [author]: {
+                    ...state[author],
+                    questions:
+                        state[author].questions.concat([id])
+                }
             };
         default:
             return state;
