@@ -171,7 +171,7 @@ export function _saveQuestion(question) {
     })
 }
 
-export function _saveQuestionAnswer({authedUser, qid, answer}) {
+export function _saveQuestionAnswer({authedUser, qid, answer, answerType}) {
     return new Promise((res, rej) => {
         setTimeout(() => {
             users = {
@@ -180,7 +180,7 @@ export function _saveQuestionAnswer({authedUser, qid, answer}) {
                     ...users[authedUser],
                     answers: {
                         ...users[authedUser].answers,
-                        [qid]: answer
+                        [qid]: answerType
                     }
                 }
             };
@@ -189,9 +189,9 @@ export function _saveQuestionAnswer({authedUser, qid, answer}) {
                 ...questions,
                 [qid]: {
                     ...questions[qid],
-                    [answer]: {
-                        ...questions[qid][answer],
-                        votes: questions[qid][answer].votes.concat([authedUser])
+                    [answerType]: {
+                        ...questions[qid][answerType],
+                        votes: questions[qid][answerType].votes.concat([authedUser])
                     }
                 }
             };
